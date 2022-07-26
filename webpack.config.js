@@ -51,6 +51,9 @@ module.exports = {
     static: { directory: path.resolve(__dirname, "src") },
     port: 5000,
   },
+  performance: {
+    hints: false,
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/[name].css",
