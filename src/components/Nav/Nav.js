@@ -24,6 +24,9 @@ function Nav() {
               ? "Nav__black-screen Nav__black-screen--show"
               : "Nav__black-screen"
           }
+          onClick={() => {
+            setMobileMenu(false);
+          }}
         ></div>
         <div
           className="Nav__hamburger-wrapper"
