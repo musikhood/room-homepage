@@ -1,3 +1,23 @@
+@mixin hoverstate($color) {
+  position: relative;
+  font-weight: 700;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0%;
+    height: 3px;
+    border-radius: 15px;
+    background-color: $color;
+    transform: translateX(-50%);
+    transition: 0.2s width ease-in-out;
+  }
+  &:hover::after {
+    width: 50%;
+  }
+}
+
 .Nav {
   position: absolute;
   top: 0;
@@ -19,24 +39,9 @@
   }
   &__desktop-item {
     color: var(--white);
-    position: relative;
     cursor: pointer;
-    font-weight: 700;
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -5px;
-      left: 50%;
-      width: 0%;
-      height: 3px;
-      border-radius: 15px;
-      background-color: white;
-      transform: translateX(-50%);
-      transition: 0.2s width ease-in-out;
-    }
-    &:hover::after {
-      width: 50%;
-    }
+    //animation
+    @include hoverstate(var(--white));
   }
   @media screen and (max-width: 450px) {
     width: 100vw;
@@ -48,7 +53,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: rgb(0, 0, 0);
+      background-color: black;
       opacity: 0;
       transform: translateX(-150%);
       transition: 0.5s opacity ease-in-out, 0s transform 0.5s;
@@ -91,10 +96,10 @@
       }
     }
     &__mobile-item {
-      position: relative;
       z-index: 11;
       cursor: pointer;
       font-weight: 700;
+      @include hoverstate(var(--black));
     }
     &__hamburger-wrapper {
       cursor: pointer;
@@ -103,7 +108,7 @@
     }
     &__logo-wrapper {
       position: absolute;
-      left: calc(50vw - 00px);
+      left: 50vw;
       transform: translateX(-50%);
     }
   }
