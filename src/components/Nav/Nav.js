@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./nav.scss";
 import Logo from "../../images/logo.svg";
 import Hamburger from "../../images/icon-hamburger.svg";
@@ -6,6 +6,20 @@ import Close from "../../images/icon-close.svg";
 
 function Nav() {
   const [mobileMenu, setMobileMenu] = useState(false);
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 449) {
+        setMobileMenu(false);
+      }
+    });
+  }, []);
+  useEffect(() => {
+    if (mobileMenu) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [mobileMenu]);
   return (
     <div className="Nav">
       <div className="Nav__logo-wrapper">
