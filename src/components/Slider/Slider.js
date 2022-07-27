@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./slider.scss";
 import data from "../../data/data.json";
 import "../../images/desktop-image-hero-1.jpg";
@@ -9,6 +9,37 @@ import left from "../../images/icon-angle-left.svg";
 import right from "../../images/icon-angle-right.svg";
 
 function Slider() {
+  const [width, setWidth] = useState(false);
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth < 500) {
+      setWidth(true);
+    } else {
+      setWidth(false);
+    }
+  });
+
+  let amount = 0;
+  let amountOfSlides = data.length - 1;
+  function moveSlide() {
+    document.querySelectorAll(".Slider__images").forEach((item) => {
+      item.style.transform = `translateX(${amount}%)`;
+    });
+    document.querySelectorAll(".Slider__info-slide").forEach((item) => {
+      item.style.transform = `translateX(${amount}%)`;
+    });
+  }
+  function next() {
+    amount -= 100;
+    if (amount < -100 * amountOfSlides) amount = 0;
+    moveSlide();
+  }
+  function prev() {
+    amount += 100;
+    if (amount > 0) amount = -100 * amountOfSlides;
+    moveSlide();
+  }
+
   return (
     <div className="Slider">
       <div className="Slider__carousel">
@@ -16,9 +47,21 @@ function Slider() {
           <div
             key={index}
             className="Slider__images"
-            style={{ backgroundImage: `url(${pictures.path})` }}
+            style={
+              width
+                ? { backgroundImage: `url(${pictures.path2})` }
+                : { backgroundImage: `url(${pictures.path})` }
+            }
           ></div>
         ))}
+        <div className="Slider__arrows2">
+          <div className="Slider__btn" onClick={prev}>
+            <img src={left} alt="" />
+          </div>
+          <div className="Slider__btn" onClick={next}>
+            <img src={right} alt="" />
+          </div>
+        </div>
       </div>
       <div className="Slider__info">
         {data.map((info, index) => (
@@ -33,10 +76,10 @@ function Slider() {
           </div>
         ))}
         <div className="Slider__arrows">
-          <div className="Slider__btn">
+          <div className="Slider__btn" onClick={prev}>
             <img src={left} alt="" />
           </div>
-          <div className="Slider__btn">
+          <div className="Slider__btn" onClick={next}>
             <img src={right} alt="" />
           </div>
         </div>

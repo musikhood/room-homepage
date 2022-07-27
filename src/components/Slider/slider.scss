@@ -1,22 +1,45 @@
+@mixin arr($left, $bottom, $width, $height) {
+  position: absolute;
+  width: $width;
+  height: $height;
+  background-color: var(--black);
+  left: $left;
+  bottom: $bottom;
+  z-index: 123;
+  display: flex;
+}
+
 .Slider {
   display: flex;
   width: 100%;
   height: 100%;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
+  }
   &__carousel {
     width: 60%;
     height: 100%;
     display: flex;
     overflow: hidden;
+    position: relative;
+    @media screen and (max-width: 800px) {
+      width: 100%;
+      height: 360px;
+    }
   }
   &__arrows {
-    position: absolute;
-    width: 10vw;
-    height: 5vw;
-    background-color: var(--black);
-    left: 0;
-    bottom: 0;
-    z-index: 123;
-    display: flex;
+    @include arr(0, 0, 10vw, 5vw);
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
+  }
+  &__arrows2 {
+    @include arr(calc(100% - 100px - 15px), 0, 100px, 50px);
+    display: none;
+    @media screen and (max-width: 800px) {
+      display: flex;
+    }
   }
   &__btn {
     width: 50%;
@@ -36,6 +59,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    transition: transform 1s ease-in-out;
     // transform: translateX(-200%);
   }
   &__info {
@@ -44,6 +68,12 @@
     display: flex;
     overflow: hidden;
     position: relative;
+    @media screen and (max-width: 800px) {
+      width: 100%;
+      // max-width: 600px;
+      padding: 50px 0;
+      height: auto;
+    }
   }
   &__info-slide {
     width: 100%;
@@ -53,6 +83,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 1s ease-in-out;
   }
   &__info-wrapper {
     width: 65%;
@@ -64,6 +95,15 @@
     }
     p {
       color: var(--darkGray);
+    }
+    @media screen and (max-width: 1100px) {
+      width: 85%;
+      max-width: 400px;
+      h1 {
+        font-size: 35px;
+        line-height: 40px;
+        margin-bottom: 30px;
+      }
     }
   }
   &__arrow {
